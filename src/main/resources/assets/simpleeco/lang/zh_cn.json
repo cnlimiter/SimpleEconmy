@@ -1,0 +1,36 @@
+{
+  "message.command.pay.success": "%s 成功支付 %s",
+  "message.command.pay.failure": "不能完成支付",
+  "message.commandfailed": "命令失败",
+  "message.command.playernotfound": "玩家 %s 不存在",
+  "message.command.eco.set.success": "玩家 %s 的余额设置成 %s",
+  "message.command.eco.set.failure": "设置余额失败",
+  "message.command.eco.give.success": "%s 被添加到 %s 的账户",
+  "message.command.eco.remove.success": "%s 从 %s 的账户被移除",
+  "message.command.eco.change.failure": "改变余额失败",
+  "message.activate.failure.admin": "只有管理员能激活系统商店",
+  "message.shop.buy.failure.same": "您是商店的主人，不能购买",
+  "message.shop.buy.failure.stock": "商店现在没有库存",
+  "message.shop.buy.failure.funds": "你没有足够的余额支付",
+  "message.shop.buy.success": "你花了 %s ,购买了 %s",
+  "message.shop.info.buy": "[售出商店] 购买 %s 要花 %s",
+  "message.shop.info.sell": "[收购商店] 售出 %s 会得到 %s",
+  "message.shop.sell.failure.same": "您是商店的主人，不能出售给您！",
+  "message.shop.sell.failure.funds": "商店主人的余额不足，不能够支付给你款项",
+  "message.shop.sell.failure.stock": "你没有足够的物品售出",
+  "message.shop.sell.failure.space": "商店的容量满了，不能再收购了",
+  "message.shop.sell.success": "你售出了 %s ,得到了 %s",
+
+  "message.goldCoin.use.success": "成功使用了1枚金币，账户余额是：%s",
+  "message.sliverCoin.use.success": "成功使用了1枚银币，账户余额是：%s",
+  "message.copperCoin.use.success": "成功使用了1枚铜币，账户余额是：%s",
+  "message.copperCoin.useMore.success": "成功使用了%s枚铜币，账户余额是：%s",
+  "message.sliverCoin.useMore.success": "成功使用了%s枚银币，账户余额是：%s",
+  "message.goldCoin.useMore.success": "成功使用了%s枚金币，账户余额是：%s",
+
+
+  "item.simpleeco.gold_coin": "金币",
+  "item.simpleeco.sliver_coin": "银币",
+  "item.simpleeco.copper_coin": "铜币",
+  "itemGroup.simpleeco": "简单经济"
+}
