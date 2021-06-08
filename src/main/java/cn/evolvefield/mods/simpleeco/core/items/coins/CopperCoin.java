@@ -5,9 +5,7 @@ import net.minecraft.item.Item;
 
 public class CopperCoin extends Item {
     public CopperCoin() {
-        super(new Properties()
-                .tab(SETab.itemTab)
-        );
+        super(new Properties().tab(SETab.itemTab));
     }
 
 
