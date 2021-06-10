@@ -18,7 +18,6 @@ public class CommandLoader {
         MoneyCommand.register(dispatcher);
         EcoCommand.register(dispatcher);
         PayCommand.register(dispatcher);
-        ShopBuildCommand.register(dispatcher);
     }
 
     @SubscribeEvent
