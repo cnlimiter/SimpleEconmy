@@ -21,5 +21,9 @@
   "item.simpleeco.gold_coin": "金币",
   "item.simpleeco.sliver_coin": "银币",
   "item.simpleeco.copper_coin": "铜币",
-  "itemGroup.simpleeco": "简单经济"
+  "itemGroup.simpleeco": "简单经济",
+
+  "tooltip.item.copperCoin.value": "价值: 1",
+  "tooltip.item.sliverCoin.value": "价值: 10",
+  "tooltip.item.goldCoin.value": "价值: 100"
 }

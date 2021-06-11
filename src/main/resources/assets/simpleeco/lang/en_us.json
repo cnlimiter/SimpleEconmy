@@ -20,5 +20,9 @@
   "item.simpleeco.gold_coin":"Gold Coin",
   "item.simpleeco.sliver_coin":"Sliver Coin",
   "item.simpleeco.copper_coin":"Copper Coin",
-  "itemGroup.simpleeco": "Simple Eco"
+  "itemGroup.simpleeco": "Simple Eco",
+
+  "tooltip.item.copperCoin.value": "Values: 1",
+  "tooltip.item.sliverCoin.value": "Values: 10",
+  "tooltip.item.goldCoin.value": "Values: 100"
 }
