@@ -1,13 +1,20 @@
 package cn.evolvefield.mods.simpleeco.utils;
 
+import cn.evolvefield.mods.simpleeco.client.gui.base.ScreenRect;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static cn.evolvefield.mods.simpleeco.SimpleEco.MOD_ID;
 
@@ -73,5 +80,62 @@ public class ScreenUtil {
 
         //BOTTOM RIGHT
         if (width <= maxWidth && height <= maxHeight) drawRect(x + width - 2, y + height - 2, u + maxWidth - 2, v + maxHeight - 2, zLevel, 2, 2);
+    }
+
+    public static void drawItemStack (ItemRenderer itemRender, ItemStack stack, int x, int y) {
+
+        //RenderHelper.func_227780_a_();
+        GL11.glTranslatef(0.0F, 0.0F, 0.0F);
+        itemRender.blitOffset = -100;
+        itemRender.renderGuiItem(stack, x, y);
+        itemRender.blitOffset = 0F;
+    }
+    public static void drawTextBox (MatrixStack matrixStack, int x, int y, int zLevel, boolean centeredString, String... text) {
+
+        GL11.glPushMatrix();
+        GL11.glTranslatef(0, 0, zLevel);
+
+        List<String> textToRender = new ArrayList<>();
+
+        int maxLength = mc.font.width(text[0]);
+
+        for (String str : text) {
+
+            if (str.length() >= 80) {
+
+                textToRender.add(str.substring(0, str.length() / 2));
+                textToRender.add(StringUtil.addAllFormats(StringUtil.getFormatsFromString(str)) + str.substring(str.length() / 2));
+            }
+
+            else textToRender.add(str);
+        }
+
+        for (String str : textToRender) {
+
+            if (mc.font.width(str) > maxLength) {
+                maxLength = mc.font.width(str);
+            }
+        }
+
+        bindTexture(MOD_ID,"tooltip");
+        drawCappedRect(x + (centeredString ? - maxLength / 2 : 0), y, 0, 0, 0, maxLength + 5, 13 + ((textToRender.size() - 1) * 9), 512, 512);
+
+        GL11.glTranslatef(0, 0, 100);
+        for (int i = 0; i < textToRender.size(); i++) {
+
+            String str = textToRender.get(i);
+            mc.font.draw(matrixStack, TextFormatting.WHITE + str, x + 3 + (centeredString ? -(int)(mc.font.width(str) / 2) : 0), y + 3 + (i * 9), 0xFFFFFF);
+        }
+
+        GL11.glTranslatef(0, 0, 0);
+        GL11.glColor4f(1, 1, 1, 1);
+        GL11.glPopMatrix();
+    }
+
+    public static void drawHoveringTextBox (MatrixStack matrixStack, int mouseX, int mouseY, int zLevel, ScreenRect rect, String... text) {
+
+        if (rect.contains(mouseX, mouseY)) {
+            drawTextBox(matrixStack, mouseX + 8, mouseY - 10, zLevel, false, text);
+        }
     }
 }
