@@ -17,8 +17,8 @@ public class ScreenUtil {
     private static final Minecraft mc = Minecraft.getInstance();
 
 
-    public static void bindTexture (String name) {
-        mc.getTextureManager().bind(new ResourceLocation(MOD_ID + ":textures/gui/" + name + ".png"));
+    public static void bindTexture (String modID ,String name) {
+        mc.getTextureManager().bind(new ResourceLocation(modID + ":textures/gui/" + name + ".png"));
     }
 
     public static void drawRect (int x, int y, int u, int v, int zLevel, int width, int height) {

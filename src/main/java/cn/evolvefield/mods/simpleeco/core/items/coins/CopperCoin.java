@@ -4,6 +4,8 @@ import cn.evolvefield.mods.simpleeco.core.SETab;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -22,6 +24,9 @@ public class CopperCoin extends Item {
     public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltipList, ITooltipFlag flag) {
         tooltipList.add(new TranslationTextComponent("tooltip.item.copperCoin.value"));
     }
+
+
+
 }
 
 
