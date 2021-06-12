@@ -10,19 +10,14 @@
   "message.command.eco.change.failure":"error changing account balance",
 
 
-  "message.goldCoin.use.success": "Successful used Gold Coin *1,now balance is:%s",
-  "message.sliverCoin.use.success": "Successful used Sliver Coin *1,now balance is:%s",
-  "message.copperCoin.use.success": "Successful used Copper Coin *1,now balance is:%s",
-  "message.copperCoin.useMore.success": "Successful used Copper Coin * %s ,now balance is:%s  ",
-  "message.sliverCoin.useMore.success": "Successful used Sliver Coin * %s,now balance is:%s",
-  "message.goldCoin.useMore.success": "Successful used Gold Coin * %s,now balance is:%s",
+  "message.coin.use.success": "Successful used *%s %s，now balance is:%s",
 
   "item.simpleeco.gold_coin":"Gold Coin",
-  "item.simpleeco.sliver_coin":"Sliver Coin",
+  "item.simpleeco.silver_coin":"Silver Coin",
   "item.simpleeco.copper_coin":"Copper Coin",
   "itemGroup.simpleeco": "Simple Eco",
 
-  "tooltip.item.copperCoin.value": "Values: 1",
-  "tooltip.item.sliverCoin.value": "Values: 10",
+  "tooltip.item.copperCoin.value": "Values: 10",
+  "tooltip.item.silverCoin.value": "Values: 50",
   "tooltip.item.goldCoin.value": "Values: 100"
 }

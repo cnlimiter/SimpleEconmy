@@ -2,7 +2,7 @@ package cn.evolvefield.mods.simpleeco.core;
 
 import cn.evolvefield.mods.simpleeco.core.items.coins.CopperCoin;
 import cn.evolvefield.mods.simpleeco.core.items.coins.GoldCoin;
-import cn.evolvefield.mods.simpleeco.core.items.coins.SliverCoin;
+import cn.evolvefield.mods.simpleeco.core.items.coins.SilverCoin;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -17,7 +17,7 @@ public class SERegistry {
 
 
     public static final RegistryObject<Item> copperCoin = ITEMS.register("copper_coin", CopperCoin::new);
-    public static final RegistryObject<Item> sliverCoin = ITEMS.register("sliver_coin", SliverCoin::new);
+    public static final RegistryObject<Item> sliverCoin = ITEMS.register("silver_coin", SilverCoin::new);
     public static final RegistryObject<Item> goldCoin = ITEMS.register("gold_coin", GoldCoin::new);
 
 }
