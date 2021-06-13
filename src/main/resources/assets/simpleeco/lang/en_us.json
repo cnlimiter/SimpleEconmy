@@ -6,7 +6,7 @@
   "message.command.eco.set.success":"%s balance set to %s",
   "message.command.eco.set.failure":"failure setting balance",
   "message.command.eco.give.success":"%s added to %s's account",
-  "message.command.eco.remove.success":"%s removed from %s's account",
+  "message.command.eco.remove.success":" %s's account has been removed %s",
   "message.command.eco.change.failure":"error changing account balance",
 
 

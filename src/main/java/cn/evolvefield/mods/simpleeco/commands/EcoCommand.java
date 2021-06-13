@@ -79,7 +79,7 @@ public class EcoCommand {
                 boolean result = data.changeBalance(player, -value);
                 if (result) {
                     context.getSource().sendFeedback(
-                            new TranslationTextComponent("message.command.eco.remove.success", symbol+ value, target), true);
+                            new TranslationTextComponent("message.command.eco.remove.success",  target ,symbol+ value), true);
                     return 0;
                 }
                 context.getSource().sendErrorMessage(new TranslationTextComponent("message.command.eco.change.failure"));

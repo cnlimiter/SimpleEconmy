@@ -28,6 +28,10 @@ public class ScreenUtil {
         mc.getTextureManager().bindTexture(new ResourceLocation(modID + ":textures/gui/" + name + ".png"));
     }
 
+    public static void bindGuiTextures (String modID) {
+        mc.getTextureManager().bindTexture(new ResourceLocation(modID + ":textures/gui/gui_textures.png"));
+    }
+
     public static void drawRect (int x, int y, int u, int v, int zLevel, int width, int height) {
 
         GL11.glPushMatrix();

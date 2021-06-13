@@ -3,10 +3,10 @@
   "message.command.pay.failure": "不能完成支付",
   "message.commandfailed": "命令失败",
   "message.command.playernotfound": "玩家 %s 不存在",
-  "message.command.eco.set.success": "玩家 %s 的余额设置成 %s",
+  "message.command.eco.set.success": "设置玩家 %s 的余额为 %s",
   "message.command.eco.set.failure": "设置余额失败",
   "message.command.eco.give.success": "%s 被添加到 %s 的账户",
-  "message.command.eco.remove.success": "%s 从 %s 的账户被移除",
+  "message.command.eco.remove.success": "从 %s 的账户移除 %s",
   "message.command.eco.change.failure": "改变余额失败",
 
 
