@@ -13,10 +13,10 @@ public class TextFieldRect extends TextFieldWidget {
 
         super(fontRenderer, x + 1, y + 2, width, 12, new StringTextComponent(defaultString));
         setTextColor(-1);
-        setTextColorUneditable(-1);
-        setBordered(true);
-        setMaxLength(stringLimit);
-        insertText(defaultString);
+        setDisabledTextColour(-1);
+        setEnableBackgroundDrawing(true);
+        setMaxStringLength(stringLimit);
+        setText(defaultString);
         setCanLoseFocus(true);
     }
 }

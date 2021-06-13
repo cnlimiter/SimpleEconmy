@@ -22,7 +22,7 @@ public class CommandLoader {
 
     @SubscribeEvent
     public static void register(FMLServerAboutToStartEvent event) {
-        CommandDispatcher<CommandSource> dispatcher = event.getServer().getCommands().getDispatcher();
+        CommandDispatcher<CommandSource> dispatcher = event.getServer().getCommandManager().getDispatcher();
         if (!init) {
             register(dispatcher);
             init = true;

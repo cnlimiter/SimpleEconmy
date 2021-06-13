@@ -12,9 +12,11 @@ public class SETab extends ItemGroup {
     }
 
     @Override
-    public ItemStack makeIcon() {
+    public ItemStack createIcon() {
         return new ItemStack(SERegistry.goldCoin.get().getItem());
     }
 
     public static ItemGroup itemTab= new SETab();
+
+
 }

@@ -32,7 +32,7 @@ public class AccountManager extends WorldSavedData implements IMoney {
     public boolean setBalance(UUID id, double value) {
             if (id != null) {
                 accounts.put(id, value);
-                this.setDirty();
+                this.markDirty();
                 return true;
             }
         return false;
@@ -53,7 +53,7 @@ public class AccountManager extends WorldSavedData implements IMoney {
         double fromBal = getBalance(fromID);
         if (fromBal < funds) return false;
         if (changeBalance(fromID, -funds) && changeBalance(toID, funds)) {
-            this.setDirty();
+            this.markDirty();
             return true;
         }
         else
@@ -63,27 +63,27 @@ public class AccountManager extends WorldSavedData implements IMoney {
     public void accountChecker(UUID owner) {
         if (owner != null && !accounts.containsKey(owner)) {
             accounts.put(owner, SEConfig.STARTING_FUNDS.get());
-            this.setDirty();
+            this.markDirty();
         }
     }
 
     @Override
-    public void load(CompoundNBT nbt) {
+    public void read(CompoundNBT nbt) {
         ListNBT baseList = nbt.getList("players", NBT.TAG_COMPOUND);
         for (int b = 0; b < baseList.size(); b++) {
             CompoundNBT snbt = baseList.getCompound(b);
-            UUID id = snbt.getUUID("id");
+            UUID id = snbt.getUniqueId("id");
             double balance = snbt.getDouble("balance");
             accounts.put(id, balance);
         }
     }
 
     @Override
-    public CompoundNBT save(CompoundNBT nbt) {
+    public CompoundNBT write(CompoundNBT nbt) {
         ListNBT baseList = new ListNBT();
         for (Map.Entry<UUID, Double> base : accounts.entrySet()) {
                 CompoundNBT nbt1 = new CompoundNBT();
-                nbt1.putUUID("id", base.getKey());
+                nbt1.putUniqueId("id", base.getKey());
                 nbt1.putDouble("balance", base.getValue());
                 baseList.add(nbt1);
         }
@@ -92,6 +92,6 @@ public class AccountManager extends WorldSavedData implements IMoney {
     }
 
     public static AccountManager get(ServerWorld world) {
-        return world.getDataStorage().computeIfAbsent(AccountManager::new, DATA_NAME);
+        return world.getSavedData().getOrCreate(AccountManager::new, DATA_NAME);
     }
 }

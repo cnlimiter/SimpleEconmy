@@ -16,15 +16,15 @@ import net.minecraft.util.text.StringTextComponent;
 public class MoneyCommand {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(LiteralArgumentBuilder.<CommandSource>literal("money")
-                .requires(src -> src.hasPermission(1))
+                .requires(src -> src.hasPermissionLevel(1))
                 .executes(context -> balance(context.getSource())));
     }
 
     private static int balance(CommandSource source) throws CommandSyntaxException{
-        AccountManager data = AccountManager.get(source.getServer().overworld());
+        AccountManager data = AccountManager.get(source.getServer().func_241755_D_());
         String symbol = SEConfig.CURRENCY_SYMBOL.get();
-        double balP = data.getBalance(source.getPlayerOrException().getUUID());
-        source.sendSuccess(new StringTextComponent(symbol+ balP), true);
+        double balP = data.getBalance(source.asPlayer().getUniqueID());
+        source.sendFeedback(new StringTextComponent(symbol+ balP), true);
 
 
         return 0;

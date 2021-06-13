@@ -19,7 +19,7 @@ public class EcoCommand {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(
                 LiteralArgumentBuilder.<CommandSource>literal("eco")
-                .requires(src -> src.hasPermission(SEConfig.ADMIN_LEVEL.get()))
+                .requires(src -> src.hasPermissionLevel(SEConfig.ADMIN_LEVEL.get()))
                 .then(Commands.literal("balance")
                         .then(Commands.argument("player", StringArgumentType.word())
                                 .executes(EcoCommand::balance)))
@@ -43,46 +43,46 @@ public class EcoCommand {
 
 
     private static int process(CommandContext<CommandSource> context) {
-        AccountManager data = AccountManager.get(context.getSource().getServer().overworld());
+        AccountManager data = AccountManager.get(context.getSource().getServer().func_241755_D_());
         MinecraftServer server = context.getSource().getServer();
         String option = StringArgumentType.getString(context, "action");
         String target = StringArgumentType.getString(context, "player");
         String symbol = SEConfig.CURRENCY_SYMBOL.get();
         double value = DoubleArgumentType.getDouble(context, "amount");
-        UUID player = server.getProfileCache().get(target).getId();
+        UUID player = server.getPlayerProfileCache().getGameProfileForUsername(target).getId();
         if (player == null) {
-            context.getSource().sendFailure(new TranslationTextComponent("message.command.playernotfound", target));
+            context.getSource().sendErrorMessage(new TranslationTextComponent("message.command.playernotfound", target));
             return 1;
         }
         switch (option) {
             case "set": {
                 boolean result = data.setBalance(player, value);
                 if (result) {
-                    context.getSource().sendSuccess(
+                    context.getSource().sendFeedback(
                             new TranslationTextComponent("message.command.eco.set.success", target, symbol+ value), true);
                     return 0;
                 }
-                context.getSource().sendFailure(new TranslationTextComponent("message.command.eco.set.failure"));
+                context.getSource().sendErrorMessage(new TranslationTextComponent("message.command.eco.set.failure"));
                 return 1;
             }
             case "give": {
                 boolean result = data.changeBalance(player, value);
                 if (result) {
-                    context.getSource().sendSuccess(
+                    context.getSource().sendFeedback(
                             new TranslationTextComponent("message.command.eco.give.success", symbol+ value, target), true);
                     return 0;
                 }
-                context.getSource().sendFailure(new TranslationTextComponent("message.command.eco.change.failure"));
+                context.getSource().sendErrorMessage(new TranslationTextComponent("message.command.eco.change.failure"));
                 return 1;
             }
             case "remove": {
                 boolean result = data.changeBalance(player, -value);
                 if (result) {
-                    context.getSource().sendSuccess(
+                    context.getSource().sendFeedback(
                             new TranslationTextComponent("message.command.eco.remove.success", symbol+ value, target), true);
                     return 0;
                 }
-                context.getSource().sendFailure(new TranslationTextComponent("message.command.eco.change.failure"));
+                context.getSource().sendErrorMessage(new TranslationTextComponent("message.command.eco.change.failure"));
                 return 1;
             }
             default:}
@@ -90,45 +90,45 @@ public class EcoCommand {
     }
 
     private static int balance(CommandContext<CommandSource> context) {
-        AccountManager data = AccountManager.get(context.getSource().getServer().overworld());
+        AccountManager data = AccountManager.get(context.getSource().getServer().func_241755_D_());
         MinecraftServer server = context.getSource().getServer();
         String target = StringArgumentType.getString(context, "player");
         String symbol = SEConfig.CURRENCY_SYMBOL.get();
-        UUID player = server.getProfileCache().get(target).getId();
+        UUID player = server.getPlayerProfileCache().getGameProfileForUsername(target).getId();
         if (player == null) {
-            context.getSource().sendFailure(new TranslationTextComponent("message.command.playernotfound", target));
+            context.getSource().sendErrorMessage(new TranslationTextComponent("message.command.playernotfound", target));
             return 1;
         }
         double balP = data.getBalance(player);
-        context.getSource().sendSuccess(new StringTextComponent(symbol+ balP), true);
+        context.getSource().sendFeedback(new StringTextComponent(symbol+ balP), true);
         return 0;
     }
 
 
     private static int transfer(CommandContext<CommandSource> context) {
-        AccountManager data = AccountManager.get(context.getSource().getServer().overworld());
+        AccountManager data = AccountManager.get(context.getSource().getServer().func_241755_D_());
         MinecraftServer server = context.getSource().getServer();
         String from = StringArgumentType.getString(context, "from");
         String to = StringArgumentType.getString(context, "to");
         String symbol = SEConfig.CURRENCY_SYMBOL.get();
         double value = DoubleArgumentType.getDouble(context, "amount");
-        UUID fromplayer = server.getProfileCache().get(from).getId();
+        UUID fromplayer = server.getPlayerProfileCache().getGameProfileForUsername(from).getId();
         if (fromplayer == null) {
-            context.getSource().sendFailure(new TranslationTextComponent("message.command.playernotfound", from));
+            context.getSource().sendErrorMessage(new TranslationTextComponent("message.command.playernotfound", from));
             return 1;
         }
-        UUID toplayer = server.getProfileCache().get(to).getId();
+        UUID toplayer = server.getPlayerProfileCache().getGameProfileForUsername(to).getId();
         if (toplayer == null) {
-            context.getSource().sendFailure(new TranslationTextComponent("message.command.playernotfound", to));
+            context.getSource().sendErrorMessage(new TranslationTextComponent("message.command.playernotfound", to));
             return 1;
         }
         boolean result = data.transferBalance( fromplayer,  toplayer, value);
         if (result) {
-            context.getSource().sendSuccess(
+            context.getSource().sendFeedback(
                     new TranslationTextComponent("message.command.pay.success", symbol+ value, to), true);
             return 0;
         }
-        context.getSource().sendFailure(new TranslationTextComponent("message.command.pay.failure"));
+        context.getSource().sendErrorMessage(new TranslationTextComponent("message.command.pay.failure"));
         return 1;
     }
 }

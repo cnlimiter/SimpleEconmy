@@ -18,21 +18,21 @@ import java.util.UUID;
 public class PayCommand {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(LiteralArgumentBuilder.<CommandSource>literal("pay")
-                .requires(src -> src.hasPermission(1))
-                .then(Commands.argument("recipient", StringArgumentType.word())
+                .requires(src -> src.hasPermissionLevel(1))
+                .then(Commands.argument("target", StringArgumentType.word())
                         .then(Commands.argument("value", DoubleArgumentType.doubleArg(0d))
                 .executes(PayCommand::pay))));
     }
 
     public static int pay(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity player = context.getSource().getPlayerOrException();
-        ServerWorld world = context.getSource().getServer().overworld();
+        ServerPlayerEntity player = context.getSource().asPlayer();
+        ServerWorld world = context.getSource().getServer().func_241755_D_();
         double value = DoubleArgumentType.getDouble(context, "value");
-        UUID recipient = context.getSource().getServer().getProfileCache().get(StringArgumentType.getString(context, "recipient")).getId();
-        if (AccountManager.get(world).transferBalance(player.getUUID(), recipient, value))
-            context.getSource().sendSuccess(new TranslationTextComponent("message.command.pay.success", Math.abs(value), StringArgumentType.getString(context, "recipient")), true);
+        UUID recipient = context.getSource().getServer().getPlayerProfileCache().getGameProfileForUsername(StringArgumentType.getString(context, "recipient")).getId();
+        if (AccountManager.get(world).transferBalance(player.getUniqueID(), recipient, value))
+            context.getSource().sendFeedback(new TranslationTextComponent("message.command.pay.success", Math.abs(value), StringArgumentType.getString(context, "recipient")), true);
         else
-            context.getSource().sendSuccess(new TranslationTextComponent("message.command.pay.failure"), false);
+            context.getSource().sendFeedback(new TranslationTextComponent("message.command.pay.failure"), false);
         return 0;
     }
 }

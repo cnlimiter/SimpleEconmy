@@ -16,12 +16,12 @@ import java.util.List;
 
 public class CopperCoin extends Item {
     public CopperCoin() {
-        super(new Properties().tab(SETab.itemTab));
+        super(new Properties().group(SETab.itemTab));
     }
 
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltipList, ITooltipFlag flag) {
+    public void addInformation(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltipList, ITooltipFlag flag) {
         tooltipList.add(new TranslationTextComponent("tooltip.item.copperCoin.value"));
     }
 

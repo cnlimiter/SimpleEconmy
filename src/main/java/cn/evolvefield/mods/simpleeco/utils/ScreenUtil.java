@@ -25,7 +25,7 @@ public class ScreenUtil {
 
 
     public static void bindTexture (String modID ,String name) {
-        mc.getTextureManager().bind(new ResourceLocation(modID + ":textures/gui/" + name + ".png"));
+        mc.getTextureManager().bindTexture(new ResourceLocation(modID + ":textures/gui/" + name + ".png"));
     }
 
     public static void drawRect (int x, int y, int u, int v, int zLevel, int width, int height) {
@@ -42,17 +42,17 @@ public class ScreenUtil {
         float pixel = 1F / TEXTURE_SIZE;
 
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
-        BufferBuilder buffer = tessellator.getBuilder();
+        BufferBuilder buffer = tessellator.getBuffer();
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
 
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        buffer.vertex((float) x, (float) maxY, 50).uv(u * pixel, maxV * pixel).endVertex();
-        buffer.vertex((float) maxX, (float) maxY, 50).uv(maxU * pixel, maxV * pixel).endVertex();
-        buffer.vertex((float) maxX, (float) y, 50).uv(maxU * pixel, v * pixel).endVertex();
-        buffer.vertex((float) x, (float) y, 50).uv(u * pixel, v * pixel).endVertex();
-        tessellator.end();
+        buffer.pos((float) x, (float) maxY, 50).tex(u * pixel, maxV * pixel).endVertex();
+        buffer.pos((float) maxX, (float) maxY, 50).tex(maxU * pixel, maxV * pixel).endVertex();
+        buffer.pos((float) maxX, (float) y, 50).tex(maxU * pixel, v * pixel).endVertex();
+        buffer.pos((float) x, (float) y, 50).tex(u * pixel, v * pixel).endVertex();
+        tessellator.draw();
 
         RenderSystem.disableBlend();
 
@@ -63,7 +63,7 @@ public class ScreenUtil {
 
         GL11.glPushMatrix();
         GL11.glTranslatef(0, 0, 50 + zLevel);
-        mc.font.draw(matrixStack, text, x - (float) (mc.font.width(text) / 2), y, color);
+        mc.fontRenderer.drawString(matrixStack, text, x - (float) (mc.fontRenderer.getStringWidth(text) / 2), y, color);
         GL11.glPopMatrix();
     }
 
@@ -86,9 +86,9 @@ public class ScreenUtil {
 
         //RenderHelper.func_227780_a_();
         GL11.glTranslatef(0.0F, 0.0F, 0.0F);
-        itemRender.blitOffset = -100;
-        itemRender.renderGuiItem(stack, x, y);
-        itemRender.blitOffset = 0F;
+        itemRender.zLevel = -100;
+        itemRender.renderItemAndEffectIntoGUI(stack, x, y);
+        itemRender.zLevel = 0F;
     }
     public static void drawTextBox (MatrixStack matrixStack, int x, int y, int zLevel, boolean centeredString, String... text) {
 
@@ -97,7 +97,7 @@ public class ScreenUtil {
 
         List<String> textToRender = new ArrayList<>();
 
-        int maxLength = mc.font.width(text[0]);
+        int maxLength = mc.fontRenderer.getStringWidth(text[0]);
 
         for (String str : text) {
 
@@ -112,8 +112,8 @@ public class ScreenUtil {
 
         for (String str : textToRender) {
 
-            if (mc.font.width(str) > maxLength) {
-                maxLength = mc.font.width(str);
+            if (mc.fontRenderer.getStringWidth(str) > maxLength) {
+                maxLength = mc.fontRenderer.getStringWidth(str);
             }
         }
 
@@ -124,7 +124,7 @@ public class ScreenUtil {
         for (int i = 0; i < textToRender.size(); i++) {
 
             String str = textToRender.get(i);
-            mc.font.draw(matrixStack, TextFormatting.WHITE + str, x + 3 + (centeredString ? -(int)(mc.font.width(str) / 2) : 0), y + 3 + (i * 9), 0xFFFFFF);
+            mc.fontRenderer.drawString(matrixStack, TextFormatting.WHITE + str, x + 3 + (centeredString ? -(int)(mc.fontRenderer.getStringWidth(str) / 2) : 0), y + 3 + (i * 9), 0xFFFFFF);
         }
 
         GL11.glTranslatef(0, 0, 0);
