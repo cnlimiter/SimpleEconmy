@@ -1,8 +1,7 @@
-package cn.evolvefield.mods.simpleeco.core;
+package cn.evolvefield.mods.simpleeco.main;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 
 import static cn.evolvefield.mods.simpleeco.SimpleEco.MOD_ID;
 

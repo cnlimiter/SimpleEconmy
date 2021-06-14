@@ -1,6 +1,6 @@
-package cn.evolvefield.mods.simpleeco.core.items.coins;
+package cn.evolvefield.mods.simpleeco.items.coins;
 
-import cn.evolvefield.mods.simpleeco.core.SETab;
+import cn.evolvefield.mods.simpleeco.main.SETab;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

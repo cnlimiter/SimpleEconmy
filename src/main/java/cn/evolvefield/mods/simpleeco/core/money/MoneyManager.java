@@ -1,6 +1,5 @@
-package cn.evolvefield.mods.simpleeco.data;
+package cn.evolvefield.mods.simpleeco.core.money;
 
-import cn.evolvefield.mods.simpleeco.api.IMoney;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.UUID;

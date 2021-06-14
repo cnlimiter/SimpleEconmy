@@ -1,7 +1,7 @@
-package cn.evolvefield.mods.simpleeco.core.items.coins;
+package cn.evolvefield.mods.simpleeco.items.coins;
 
-import cn.evolvefield.mods.simpleeco.core.SEConfig;
-import cn.evolvefield.mods.simpleeco.data.AccountManager;
+import cn.evolvefield.mods.simpleeco.main.SEConfig;
+import cn.evolvefield.mods.simpleeco.core.money.AccountManager;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;

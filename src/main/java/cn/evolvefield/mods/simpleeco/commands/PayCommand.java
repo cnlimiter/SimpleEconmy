@@ -1,6 +1,6 @@
 package cn.evolvefield.mods.simpleeco.commands;
 
-import cn.evolvefield.mods.simpleeco.data.AccountManager;
+import cn.evolvefield.mods.simpleeco.core.money.AccountManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -18,7 +18,7 @@ import java.util.UUID;
 public class PayCommand {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(LiteralArgumentBuilder.<CommandSource>literal("pay")
-                .requires(src -> src.hasPermissionLevel(1))
+                .requires(src -> src.hasPermissionLevel(0))
                 .then(Commands.argument("target", StringArgumentType.word())
                         .then(Commands.argument("value", DoubleArgumentType.doubleArg(0d))
                 .executes(PayCommand::pay))));

@@ -1,4 +1,4 @@
-package cn.evolvefield.mods.simpleeco.api;
+package cn.evolvefield.mods.simpleeco.core.money;
 
 import java.util.UUID;
 

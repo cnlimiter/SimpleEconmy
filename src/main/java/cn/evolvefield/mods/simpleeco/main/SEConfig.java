@@ -1,4 +1,4 @@
-package cn.evolvefield.mods.simpleeco.core;
+package cn.evolvefield.mods.simpleeco.main;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 

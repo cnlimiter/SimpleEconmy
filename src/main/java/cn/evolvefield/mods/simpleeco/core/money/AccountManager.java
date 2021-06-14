@@ -1,10 +1,8 @@
-package cn.evolvefield.mods.simpleeco.data;
+package cn.evolvefield.mods.simpleeco.core.money;
 
-import cn.evolvefield.mods.simpleeco.api.IMoney;
-import cn.evolvefield.mods.simpleeco.core.SEConfig;
+import cn.evolvefield.mods.simpleeco.main.SEConfig;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.util.Constants.NBT;

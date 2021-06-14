@@ -1,22 +1,17 @@
 package cn.evolvefield.mods.simpleeco.commands;
 
-import cn.evolvefield.mods.simpleeco.core.SEConfig;
-import cn.evolvefield.mods.simpleeco.data.AccountManager;
+import cn.evolvefield.mods.simpleeco.main.SEConfig;
+import cn.evolvefield.mods.simpleeco.core.money.AccountManager;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
-import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.StringTextComponent;
 
 public class MoneyCommand {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(LiteralArgumentBuilder.<CommandSource>literal("money")
-                .requires(src -> src.hasPermissionLevel(1))
+                .requires(src -> src.hasPermissionLevel(0))
                 .executes(context -> balance(context.getSource())));
     }
 

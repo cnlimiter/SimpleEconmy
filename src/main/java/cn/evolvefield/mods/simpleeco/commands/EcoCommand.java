@@ -1,7 +1,7 @@
 package cn.evolvefield.mods.simpleeco.commands;
 
-import cn.evolvefield.mods.simpleeco.core.SEConfig;
-import cn.evolvefield.mods.simpleeco.data.AccountManager;
+import cn.evolvefield.mods.simpleeco.main.SEConfig;
+import cn.evolvefield.mods.simpleeco.core.money.AccountManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
