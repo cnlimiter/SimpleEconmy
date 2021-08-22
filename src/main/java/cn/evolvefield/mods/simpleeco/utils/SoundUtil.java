@@ -16,30 +16,30 @@ public class SoundUtil {
 
 
     public static void playDing (World world, PlayerEntity player) {
-        world.playSound(player, player.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 1, 1);
+        world.playSound(player, player.getX(),player.getY(),player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 1, 1);
     }
 
-    public static void playClick (World world, PlayerEntity player) {
-        world.playSound(player, player.getPosition(), SoundEvents.BLOCK_LEVER_CLICK, player.getSoundCategory(), 1, 1);
-    }
-
-    public static void playClang (World world, PlayerEntity player) {
-        world.playSound(player, player.getPosition(), SoundEvents.BLOCK_ANVIL_LAND, player.getSoundCategory(), 0.9F, 1.1F);
-    }
-
-    public static void playWarp (World world, PlayerEntity player) {
-        world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, player.getSoundCategory(), 0.9F, 1.1F);
-    }
-
-    public static void playWarp (World world, PlayerEntity player, Location location) {
-        world.playSound(player, location.getBlockPos(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, player.getSoundCategory(), 0.9F, 1.1F);
-    }
-
-    public static void playEraser (World world, PlayerEntity player, Location location) {
-        world.playSound(player, location.getBlockPos(), SoundEvents.ENTITY_SLIME_ATTACK, player.getSoundCategory(), 0.9F, 1.0F);
-    }
-
-    public static void playBlueprint (World world, PlayerEntity player, Location location) {
-        world.playSound(player, location.getBlockPos(), SoundEvents.BLOCK_STONE_PLACE, player.getSoundCategory(), 0.9F, 2.0F);
-    }
+//    public static void playClick (World world, PlayerEntity player) {
+//        world.playSound(player, player.getX(),player.getY(),player.getZ(), SoundEvents.BLOCK_LEVER_CLICK, player.getSoundCategory(), 1, 1);
+//    }
+//
+//    public static void playClang (World world, PlayerEntity player) {
+//        world.playSound(player, player.getX(),player.getY(),player.getZ(), SoundEvents.BLOCK_ANVIL_LAND, player.getSoundCategory(), 0.9F, 1.1F);
+//    }
+//
+//    public static void playWarp (World world, PlayerEntity player) {
+//        world.playSound(player, player.getX(),player.getY(),player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, player.getSoundCategory(), 0.9F, 1.1F);
+//    }
+//
+//    public static void playWarp (World world, PlayerEntity player, Location location) {
+//        world.playSound(player, location.getBlockPos(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, player.getSoundCategory(), 0.9F, 1.1F);
+//    }
+//
+//    public static void playEraser (World world, PlayerEntity player, Location location) {
+//        world.playSound(player, location.getBlockPos(), SoundEvents.ENTITY_SLIME_ATTACK, player.getSoundCategory(), 0.9F, 1.0F);
+//    }
+//
+//    public static void playBlueprint (World world, PlayerEntity player, Location location) {
+//        world.playSound(player, location.getBlockPos(), SoundEvents.BLOCK_STONE_PLACE, player.getSoundCategory(), 0.9F, 2.0F);
+//    }
 }

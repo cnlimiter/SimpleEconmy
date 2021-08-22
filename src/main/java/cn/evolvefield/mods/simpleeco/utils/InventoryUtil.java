@@ -1,7 +1,6 @@
 package cn.evolvefield.mods.simpleeco.utils;
 
 
-import cn.evolvefield.mods.simpleeco.inventory.SEItemHandler;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -13,7 +12,7 @@ public class InventoryUtil {
     private static int getSlotAmount(Object obj) {
 
         if (obj instanceof IInventory) {
-            return ((IInventory)obj).getSizeInventory();
+            return ((IInventory)obj).getMaxStackSize();
         }
 
         if (obj instanceof SEItemHandler) {
@@ -26,7 +25,7 @@ public class InventoryUtil {
     private static boolean isStackValidForSlot(Object obj, ItemStack stack, int slotId) {
 
         if (obj instanceof IInventory) {
-            return ((IInventory)obj).isItemValidForSlot(slotId, stack);
+            return ((IInventory)obj).canPlaceItem(slotId, stack);
         }
 
         if (obj instanceof SEItemHandler) {
@@ -39,7 +38,7 @@ public class InventoryUtil {
     private static ItemStack getStackInSlot(Object obj, int slotId) {
 
         if (obj instanceof IInventory) {
-            return ((IInventory)obj).getStackInSlot(slotId);
+            return ((IInventory)obj).getItem(slotId);
         }
 
         if (obj instanceof SEItemHandler) {
@@ -52,7 +51,7 @@ public class InventoryUtil {
     private static void setStackInSlot(Object obj, ItemStack stack, int slotId) {
 
         if (obj instanceof IInventory) {
-            ((IInventory)obj).setInventorySlotContents(slotId, stack);
+            ((IInventory)obj).setItem(slotId, stack);
         }
 
         if (obj instanceof SEItemHandler) {
@@ -63,7 +62,7 @@ public class InventoryUtil {
     private static void decreaseCountFromSlot(Object obj, int slot, int decreaseAmount) {
 
         if (obj instanceof IInventory) {
-            ((IInventory)obj).decrStackSize(slot, decreaseAmount);
+            ((IInventory)obj).removeItem(slot, decreaseAmount);
         }
 
         if (obj instanceof SEItemHandler) {
@@ -85,11 +84,11 @@ public class InventoryUtil {
                     amountLeft -= stack.getMaxStackSize();
                 }
 
-                else if (ItemStack.areItemsEqual(stackInSlot, stack)) {
+                else if (ItemStack.tagMatches(stackInSlot, stack)) {
 
                     if (stack.hasTag()) {
 
-                        if (!stackInSlot.hasTag() || ItemStack.areItemStackTagsEqual(stack, stackInSlot)) {
+                        if (!stackInSlot.hasTag() || ItemStack.matches(stack, stackInSlot)) {
                             continue;
                         }
                     }
@@ -133,11 +132,11 @@ public class InventoryUtil {
 
             ItemStack stackInSlot = getStackInSlot(obj, slotId);
 
-            if (ItemStack.areItemsEqual(stackInSlot, stack) && (stackInSlot.getCount() + stack.getCount() <= stack.getMaxStackSize())) {
+            if (ItemStack.tagMatches(stackInSlot, stack) && (stackInSlot.getCount() + stack.getCount() <= stack.getMaxStackSize())) {
 
                 if (stack.hasTag()) {
 
-                    if (!ItemStack.areItemStackTagsEqual(stackInSlot, stack)) {
+                    if (!ItemStack.tagMatches(stackInSlot, stack)) {
                         continue;
                     }
                 }
@@ -208,7 +207,7 @@ public class InventoryUtil {
 
             ItemStack stackInSlot = getStackInSlot(obj, slotId);
 
-            if (stackInSlot.isItemEqual(stack)) {
+            if (stackInSlot.equals(stack)) {
 
                 if (useNBT && stack.hasTag()) {
 
@@ -244,7 +243,7 @@ public class InventoryUtil {
 
                 if (!stackInSlot.isEmpty()) {
 
-                    if (stackInSlot.isItemEqual(stack)) {
+                    if (stackInSlot.equals(stack)) {
 
                         if (useNBT && stack.hasTag()) {
 

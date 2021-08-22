@@ -4,7 +4,7 @@ import net.minecraft.world.World;
 
 public class LogUtil {
     public static void logCommon (World world, Object message) {
-        System.out.println((world.isRemote ? "CLIENT: " : "SERVER: ") + message);
+        System.out.println((world.isClientSide ? "CLIENT: " : "SERVER: ") + message);
     }
 
     public static void log (Object message) {

@@ -1,13 +1,11 @@
 package cn.evolvefield.mods.simpleeco.client.gui.base;
 
 
-import cn.evolvefield.mods.simpleeco.utils.ScreenUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.StringTextComponent;
-
 
 
 public abstract class GuiScreenBase extends Screen {
@@ -80,8 +78,8 @@ public abstract class GuiScreenBase extends Screen {
         super.keyPressed(i1, i2, i3);
 
         if (minecraft != null) {
-            if (canCloseWithInvKey() && i1 == minecraft.gameSettings.keyBindInventory.getKey().getKeyCode()) {
-                player.closeScreen();
+            if (canCloseWithInvKey() && i1 == minecraft.options.keyInventory.getKey().getValue()) {
+                player.closeContainer();
                 return true;
             }
         }

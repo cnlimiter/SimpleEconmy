@@ -15,7 +15,7 @@ public class ItemsUtil {
     public static void attachNBTFromString (ItemStack stack, String nbtString) {
 
         try {
-            stack.setTag(JsonToNBT.getTagFromJson(nbtString));
+            stack.setTag(JsonToNBT.parseTag(nbtString));
         }
 
         catch (CommandSyntaxException e) {
@@ -24,7 +24,7 @@ public class ItemsUtil {
     }
 
     public static void spawnOverflowingStackAtEntity(World world, Entity entity, ItemStack stack) {
-        spawnOverflowingStack(world, (float) entity.getPosition().getX() + 0.5F, (float) entity.getPosition().getY() + 0.5F, (float) entity.getPosition().getZ() + 0.5F, stack);
+        spawnOverflowingStack(world, (float) entity.getX() + 0.5F, (float) entity.getY() + 0.5F, (float) entity.getZ() + 0.5F, stack);
     }
 
     private static void spawnOverflowingStack(World world, float x, float y, float z, ItemStack stack) {
@@ -45,14 +45,14 @@ public class ItemsUtil {
     }
 
     public static ItemEntity spawnStackAtLocation(World world, Location location, ItemStack stack) {
-        return spawnStack(world, location.x + 0.5F, location.y + 0.5F, location.z + 0.5F, stack);
+        return spawnStack(world, (float) location.x + 0.5F, (float)location.y + 0.5F, (float)location.z + 0.5F, stack);
     }
 
     private static ItemEntity spawnStack(World world, float x, float y, float z, ItemStack stack) {
         ItemEntity item = new ItemEntity(world, x, y, z, stack);
-        item.setNoPickupDelay();
-        item.setMotion(-0.05F + rand.nextFloat() * 0.1F, -0.05F + rand.nextFloat() * 0.1F, -0.05F + rand.nextFloat() * 0.1F);
-        world.addEntity(item);
+        item.setDefaultPickUpDelay();
+        item.setDeltaMovement(-0.05F + rand.nextFloat() * 0.1F, -0.05F + rand.nextFloat() * 0.1F, -0.05F + rand.nextFloat() * 0.1F);
+        world.addFreshEntity(item);
         return item;
     }
 }

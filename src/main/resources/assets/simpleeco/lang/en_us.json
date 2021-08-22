@@ -8,7 +8,7 @@
   "message.command.eco.give.success":"%s added to %s's account",
   "message.command.eco.remove.success":" %s's account has been removed %s",
   "message.command.eco.change.failure":"error changing account balance",
-
+  "message.death":"You lost %s from dying",
 
   "message.coin.use.success": "Successful used *%s %s，now balance is:%s",
 

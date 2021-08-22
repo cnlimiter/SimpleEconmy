@@ -20,7 +20,7 @@ public class UnitChatMessage {
         for (Entity player : players) {
 
             StringTextComponent componentString = new StringTextComponent(getUnitName() + (format + message));
-            player.sendMessage(componentString, Util.DUMMY_UUID);
+            player.sendMessage(componentString, Util.NIL_UUID);
         }
     }
 

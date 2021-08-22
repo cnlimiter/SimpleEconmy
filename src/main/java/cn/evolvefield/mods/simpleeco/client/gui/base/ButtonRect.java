@@ -50,7 +50,7 @@ public class ButtonRect extends Button {
                 GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
             }
 
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(MOD_ID + ":textures/gui/gui_textures.png") );//textures in simpleeco
+            Minecraft.getInstance().getTextureManager().bind(new ResourceLocation(MOD_ID + ":textures/gui/gui_textures.png") );//textures in simpleeco
             ScreenUtil.drawCappedRect(rect.x, rect.y, 0, 240, 5, rect.width, rect.height, 256, 16);
 
             GL11.glColor4f(1, 1, 1, 1);

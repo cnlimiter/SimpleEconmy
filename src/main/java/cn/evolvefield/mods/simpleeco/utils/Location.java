@@ -25,14 +25,14 @@ import java.util.List;
 public class Location {
 
     public final World world;
-    public int x, y, z;
+    public double x, y, z;
     private BlockPos blockPos;
 
     public Location(World world, BlockPos pos) {
         this(world, pos.getX(), pos.getY(), pos.getZ());
     }
 
-    public Location(World world, int x, int y, int z) {
+    public Location(World world, double x, double y, double z) {
 
         this.world = world;
         this.x = x;
@@ -43,11 +43,11 @@ public class Location {
     }
 
     public Location(TileEntity tileEntity) {
-        this(tileEntity.getWorld(), tileEntity.getPos().getX(), tileEntity.getPos().getY(), tileEntity.getPos().getZ());
+        this(tileEntity.getLevel(), tileEntity.getBlockPos().getX(), tileEntity.getBlockPos().getY(), tileEntity.getBlockPos().getZ());
     }
 
     public Location(Entity entity) {
-        this(entity.world, entity.getPosition().getX(), entity.getPosition().getY(), entity.getPosition().getZ());
+        this(entity.level, entity.getX(), entity.getY(), entity.getZ());
     }
 
     public Location(Location location, Direction dir) {
@@ -57,18 +57,18 @@ public class Location {
     public Location(Location location, Direction dir, int distance) {
 
         this.world = location.world;
-        this.x = location.x + (dir.getXOffset() * distance);
-        this.y = location.y + (dir.getYOffset() * distance);
-        this.z = location.z + (dir.getZOffset() * distance);
+        this.x = location.x + (dir.getStepX() * distance);
+        this.y = location.y + (dir.getStepY() * distance);
+        this.z = location.z + (dir.getStepZ() * distance);
 
         blockPos = new BlockPos(x, y, z);
     }
 
     public Location translate(Direction dir, int distance) {
 
-        this.x += (dir.getXOffset() * distance);
-        this.y += (dir.getYOffset() * distance);
-        this.z += (dir.getZOffset() * distance);
+        this.x += (dir.getStepX() * distance);
+        this.y += (dir.getStepY() * distance);
+        this.z += (dir.getStepZ() * distance);
         blockPos = new BlockPos(x, y, z);
 
         return this;
@@ -127,34 +127,34 @@ public class Location {
     }
 
     public int getLightValue() {
-        return world.getLight(getBlockPos());
+        return world.getLightEmission(getBlockPos());
     }
 
     public TileEntity getTileEntity() {
-        return world.getTileEntity(getBlockPos());
+        return world.getBlockEntity(getBlockPos());
     }
 
     public double getDistance(Location location) {
 
-        int dx = x - location.x;
-        int dy = y - location.y;
-        int dz = z - location.z;
+        double dx = x - location.x;
+        double dy = y - location.y;
+        double dz = z - location.z;
 
         return Math.sqrt((dx * dx) + (dy * dy) + (dz * dz));
     }
 
     public void setBlock(Block block) {
-        world.setBlockState(getBlockPos(), block.getDefaultState());
+        world.setBlockAndUpdate(getBlockPos(), block.getBlock().defaultBlockState());
     }
 
     public void setBlock(BlockState state) {
-        world.setBlockState(getBlockPos(), state.getBlock().getDefaultState());
-        world.setBlockState(getBlockPos(), state);
+        world.setBlockAndUpdate(getBlockPos(), state.getBlock().defaultBlockState());
+        world.setBlockAndUpdate(getBlockPos(), state);
     }
 
     public void setBlock(BlockState state, PlayerEntity placer) {
-        world.setBlockState(getBlockPos(), state, 2);
-        state.getBlock().onBlockPlacedBy(world, getBlockPos(), state, placer, new ItemStack(state.getBlock()));
+        world.setBlock(getBlockPos(), state, 2);
+        state.getBlock().setPlacedBy(world, getBlockPos(), state, placer, new ItemStack(state.getBlock()));
     }
 
     public void setBlockToAir() {
@@ -168,7 +168,7 @@ public class Location {
         }
 
         if (player instanceof ServerPlayerEntity) {
-            ((ServerPlayerEntity) player).interactionManager.tryHarvestBlock(blockPos);
+            ((ServerPlayerEntity) player).gameMode.destroyBlock(blockPos);
         }
 
         SoundUtil.playBlockPlaceSound(world, player, getBlockState(), this);
@@ -187,27 +187,27 @@ public class Location {
     }
 
     public boolean isFullCube() {
-        return getBlockState().isOpaqueCube(world, getBlockPos());
+        return getBlockState().isCollisionShapeFullBlock(world, getBlockPos());
     }
 
     public boolean isEntityAtLocation(Entity entity) {
 
-        int entityX = entity.getPosition().getX();
-        int entityY = entity.getPosition().getY();
-        int entityZ = entity.getPosition().getZ();
+        double entityX = entity.getX();
+        double entityY = entity.getY();
+        double entityZ = entity.getZ();
 
         return entityX == x && entityZ == z && (entityY == y || entityY + 1 == y);
     }
 
     public boolean doesBlockHaveCollision() {
-        return getBlock().getCollisionShape(getBlockState(), world, getBlockPos(), ISelectionContext.dummy()) != VoxelShapes.empty();
+        return getBlock().getCollisionShape(getBlockState(), world, getBlockPos(), ISelectionContext.empty()) != VoxelShapes.empty();
     }
 
     public static Location readFromNBT(World world, CompoundNBT nbt) {
 
-        int x = nbt.getInt("locX");
-        int y = nbt.getInt("locY");
-        int z = nbt.getInt("locZ");
+        double x = nbt.getDouble("locX");
+        double y = nbt.getDouble("locY");
+        double z = nbt.getDouble("locZ");
 
         Location loc = new Location(world, x, y, z);
 
@@ -219,9 +219,9 @@ public class Location {
     }
 
     public void writeToNBT(CompoundNBT nbt) {
-        nbt.putInt("locX", z);
-        nbt.putInt("locY", y);
-        nbt.putInt("locZ", z);
+        nbt.putDouble("locX", z);
+        nbt.putDouble("locY", y);
+        nbt.putDouble("locZ", z);
     }
 
     @Override

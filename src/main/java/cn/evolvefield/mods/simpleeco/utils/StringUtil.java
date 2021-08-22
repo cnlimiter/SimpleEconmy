@@ -1,7 +1,7 @@
 package cn.evolvefield.mods.simpleeco.utils;
 
 
-import cn.evolvefield.mods.simpleeco.main.SEConfig;
+import cn.evolvefield.mods.simpleeco.init.SEConfig;
 import net.minecraft.util.text.TextFormatting;
 
 import java.text.DecimalFormat;
