@@ -1,15 +1,21 @@
 {
-  "message.command.pay.success": "%s 成功支付 %s",
-  "message.command.pay.failure": "不能完成支付",
+
   "message.commandfailed": "命令失败",
   "message.command.playernotfound": "玩家 %s 不存在",
+  "message.command.pay.success": "%s 成功支付 %s",
+  "message.command.pay.failure": "不能完成支付",
   "message.command.eco.set.success": "设置玩家 %s 的余额为 %s",
   "message.command.eco.set.failure": "设置余额失败",
   "message.command.eco.give.success": "%s 被添加到 %s 的账户",
   "message.command.eco.remove.success": "从 %s 的账户移除 %s",
   "message.command.eco.change.failure": "改变余额失败",
+  "message.command.fly.buy.success": "成功花费 %s 购买了 %s 分钟来飞行！",
+  "message.command.fly.cantSetFly": "你不能购买飞行时间，因为你是创造模式！",
+  "message.command.fly.cantFlyNow": "飞行时间结束！",
+  "message.command.fly.canFly": "现在，你可以飞行了！",
+  "message.command.fly.cantFly": "现在，你不能飞行了，还剩 %s 分钟飞行时间！",
+  "message.command.fly.flyTemp": "玩家 \"%s\" 现在可以飞行，直至 %s ！",
   "message.death":"你因死亡失去了 %s 钱",
-
   "message.coin.use.success": "成功使用了%s枚%s，账户余额是：%s",
 
   "item.simpleeco.gold_coin": "金币",

@@ -12,7 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import static cn.evolvefield.mods.simpleeco.SimpleEco.MOD_ID;
 
-public class SERegistry {
+public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
 
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MOD_ID);

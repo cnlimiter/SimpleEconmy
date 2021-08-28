@@ -1,6 +1,7 @@
 package cn.evolvefield.mods.simpleeco.api.money;
 
 import cn.evolvefield.mods.simpleeco.init.SEConfig;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.world.server.ServerWorld;
@@ -19,7 +20,6 @@ public class AccountManager extends WorldSavedData implements IMoney {
     public AccountManager() {super(DATA_NAME);}
 
     private final Map<UUID, Double> accounts = new HashMap<>();
-
 
 
     @Override

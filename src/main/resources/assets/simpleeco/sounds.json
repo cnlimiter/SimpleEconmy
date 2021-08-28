@@ -4,19 +4,19 @@
     "subtitle": "item.coin_sound.sub",
     "sounds": [
       {
-        "name": "calemiutils:item/coin_1",
+        "name": "simpleeco:item/coin_1",
         "stream": true
       },
       {
-        "name": "calemiutils:item/coin_2",
+        "name": "simpleeco:item/coin_2",
         "stream": true
       },
       {
-        "name": "calemiutils:item/coin_3",
+        "name": "simpleeco:item/coin_3",
         "stream": true
       },
       {
-        "name": "calemiutils:item/coin_4",
+        "name": "simpleeco:item/coin_4",
         "stream": true
       }
     ]

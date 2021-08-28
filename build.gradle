@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'idea'
 
 group = 'cn.evolvefield.mods'
-version = '1.4.1'
+version = '1.5.1'
 archivesBaseName = 'SimpleEco'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.

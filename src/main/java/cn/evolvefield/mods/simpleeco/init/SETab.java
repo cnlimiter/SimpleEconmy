@@ -16,5 +16,5 @@ public class SETab extends ItemGroup {
 
     @Override
     public ItemStack makeIcon() {
-        return new ItemStack(SERegistry.goldCoin.get().getItem());    }
+        return new ItemStack(ModItems.goldCoin.get().getItem());    }
 }

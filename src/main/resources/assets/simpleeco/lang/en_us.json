@@ -1,15 +1,21 @@
 {	
-  "message.command.pay.success":"%s paid to %s",
-  "message.command.pay.failure":"unable to complete pay",
+
   "message.commandfailed":"Command Failed",
   "message.command.playernotfound":"%s not found",
+  "message.command.pay.success":"%s paid to %s",
+  "message.command.pay.failure":"unable to complete pay",
   "message.command.eco.set.success":"%s balance set to %s",
   "message.command.eco.set.failure":"failure setting balance",
   "message.command.eco.give.success":"%s added to %s's account",
   "message.command.eco.remove.success":" %s's account has been removed %s",
   "message.command.eco.change.failure":"error changing account balance",
+  "message.command.fly.buy.success": "Successfully use %s to buy %s minutes to fly!",
+  "message.command.fly.cantSetFly": "You can't buy flying time,because you are creative!",
+  "message.command.fly.cantFlyNow": "You can't fly now!",
+  "message.command.fly.canFly": "You can fly now!",
+  "message.command.fly.cantFly": "You can't fly now,time left %s!",
+  "message.command.fly.flyTemp": "Player \"%s\" now can fly till %s !",
   "message.death":"You lost %s from dying",
-
   "message.coin.use.success": "Successful used *%s %s，now balance is:%s",
 
   "item.simpleeco.gold_coin":"Gold Coin",

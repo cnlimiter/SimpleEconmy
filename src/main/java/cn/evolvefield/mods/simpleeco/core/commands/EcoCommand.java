@@ -1,6 +1,7 @@
 package cn.evolvefield.mods.simpleeco.core.commands;
 
 import cn.evolvefield.mods.simpleeco.api.money.AccountManager;
+import cn.evolvefield.mods.simpleeco.api.money.PlayerData;
 import cn.evolvefield.mods.simpleeco.init.SEConfig;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
@@ -90,7 +91,7 @@ public class EcoCommand {
         return 0;
     }
 
-    private static int balance(CommandContext<CommandSource> context) {
+    private static int balance(CommandContext<CommandSource> context) throws CommandSyntaxException {
         AccountManager data = AccountManager.get(context.getSource().getServer().overworld());
         MinecraftServer server = context.getSource().getServer();
         String target = StringArgumentType.getString(context, "player");
@@ -106,7 +107,7 @@ public class EcoCommand {
     }
 
 
-    private static int transfer(CommandContext<CommandSource> context) {
+    private static int transfer(CommandContext<CommandSource> context)throws CommandSyntaxException  {
         AccountManager data = AccountManager.get(context.getSource().getServer().overworld());
         MinecraftServer server = context.getSource().getServer();
         String from = StringArgumentType.getString(context, "from");

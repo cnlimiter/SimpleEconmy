@@ -1,8 +1,9 @@
 package cn.evolvefield.mods.simpleeco;
 
 import cn.evolvefield.mods.simpleeco.init.SEConfig;
-import cn.evolvefield.mods.simpleeco.init.SERegistry;
+import cn.evolvefield.mods.simpleeco.init.ModItems;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.storage.FolderName;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -18,6 +19,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+
+import static net.minecraft.world.storage.FolderName.PLAYER_DATA_DIR;
 
 
 @Mod("simpleeco")
@@ -37,14 +40,15 @@ public class SimpleEco {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SEConfig.SERVER_CONFIG);
 
-        SERegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
     }
 
 
     private void onServerAboutToStart(FMLServerAboutToStartEvent event) {
         SERVER = event.getServer();
-        MAIN_FOLDER = new File(FMLPaths.GAMEDIR.get().toFile() + "/" + "SimpleEco") ;
+        //MAIN_FOLDER = new File(FMLPaths.GAMEDIR.get().toFile() + "/" + "SimpleEco") ;
+        MAIN_FOLDER = SERVER.getWorldPath(new FolderName("SimpleEco")).toFile();
         fileInit();
         LOGGER.info("SE Successfully initialize directories!");
     }
