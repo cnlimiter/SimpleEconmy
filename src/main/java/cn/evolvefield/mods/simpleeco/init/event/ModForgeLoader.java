@@ -41,6 +41,8 @@ public class ModForgeLoader {
                             .forEach(player -> {
                                 player.setFlyable(false);
                                 player.setCanFlyUntil(-1);
+                                player.setCanFlyTime(-1);
+                                player.setStartFlyTime(-1);
                                 player.getPlayer().sendMessage(new TranslationTextComponent("message.command.fly.cantFlyNow").withStyle(TextFormatting.YELLOW), Util.NIL_UUID);
 
                             });

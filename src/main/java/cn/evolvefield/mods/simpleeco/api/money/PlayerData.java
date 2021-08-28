@@ -20,6 +20,9 @@ public class PlayerData {
 
     private boolean isFlyable;
     private long canFlyUntil = -1;
+    private long canFlyTime = -1;
+
+    private long startFlyTime = -1;
 
     private PlayerData(@NotNull UUID uuid, String playerName) {
         this.uuid = uuid;
@@ -49,6 +52,8 @@ public class PlayerData {
         // Fly
         nbt.putBoolean("flyable", this.isFlyable);
         nbt.putLong("canFlyUntil", this.canFlyUntil);
+        nbt.putLong("canFlyTime", this.canFlyTime);
+        nbt.putLong("startFlyTime", this.startFlyTime);
 
 
         return nbt;
@@ -61,6 +66,8 @@ public class PlayerData {
         this.playerName = nbt.getString("name");
         this.isFlyable = nbt.getBoolean("flyable");
         this.canFlyUntil = nbt.getLong("canFlyUntil");
+        this.canFlyTime = nbt.getLong("canFlyTime");
+        this.startFlyTime = nbt.getLong("startFlyTime");
 
 
     }
@@ -84,7 +91,6 @@ public class PlayerData {
             } else {
                 this.player.abilities.mayfly = false;
                 this.player.abilities.flying = false;
-                //this.canFlyUntil = -1;
             }
             this.player.onUpdateAbilities();
             this.isFlyable = flyable;
@@ -98,6 +104,24 @@ public class PlayerData {
     public void setCanFlyUntil(long canFlyUntil) {
         this.canFlyUntil = canFlyUntil;
     }
+
+    public long getCanFlyTime() {
+        return canFlyTime;
+    }
+
+    public void setCanFlyTime(long canFlyTime) {
+        this.canFlyTime = canFlyTime;
+    }
+
+    public long getStartFlyTime() {
+        return startFlyTime;
+    }
+
+    public void setStartFlyTime(long startFlyTime) {
+        this.startFlyTime = startFlyTime;
+    }
+
+
 
     public @Nullable PlayerEntity getPlayer() {
         return this.player;

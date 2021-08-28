@@ -46,7 +46,6 @@ public class FlyCommand {
     }
 
     private static int buyMinutes(ServerPlayerEntity player,int... minutes)throws CommandSyntaxException {
-        //PlayerEntity player = source.getSource().getPlayerOrException();
         AccountManager wsd = AccountManager.get(player.level.getServer().overworld());
         PlayerData data = PlayerData.getInstance(player);
         String symbol = SEConfig.CURRENCY_SYMBOL.get();
@@ -55,23 +54,26 @@ public class FlyCommand {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
         long flyUntil = data.getCanFlyUntil();
+        long flyTime = data.getCanFlyTime();
+
         long minutes1 = flyUntil/(60 * 1000L);
         long canFlyUntil = System.currentTimeMillis() + minutes[0] * 60 * 1000L;
         double balU = minutes[0] * flyFactor;
         wsd.setBalance(player.getUUID(),balP - balU);
-        player.sendMessage(new TranslationTextComponent("message.command.fly.buy.success",SEConfig.CURRENCY_SYMBOL.get() + balU,minutes[0]),Util.NIL_UUID);
+        player.sendMessage(new TranslationTextComponent("message.command.fly.buy.success",symbol + balU,minutes[0]),Util.NIL_UUID);
         if (flyUntil ==  -1) {
             data.setCanFlyUntil(canFlyUntil);
+            data.setCanFlyTime(minutes[0] * 60* 1000L);//ms
             Date date = new Date(canFlyUntil);
             String formattedDate = simpleDateFormat.format(date);
             player.sendMessage(new TranslationTextComponent("message.command.fly.flyTemp",data.getName(),  formattedDate).withStyle(TextFormatting.GREEN), Util.NIL_UUID);
         }
         else {
-            data.setCanFlyUntil((minutes1+minutes[0])* 60 * 1000L);
-            Date date = new Date((minutes1+minutes[0])* 60 * 1000L);
+            data.setCanFlyUntil(System.currentTimeMillis() + (minutes1+minutes[0])* 60 * 1000L);
+            data.setCanFlyTime(flyTime + minutes[0] * 60* 1000L);//ms
+            Date date = new Date(System.currentTimeMillis() + (minutes1+minutes[0])* 60 * 1000L);
             String formattedDate = simpleDateFormat.format(date);
             player.sendMessage(new TranslationTextComponent("message.command.fly.flyTemp",data.getName(),  formattedDate).withStyle(TextFormatting.GREEN), Util.NIL_UUID);
-
         }
 
         try {
@@ -85,21 +87,46 @@ public class FlyCommand {
         return 0;
     }
     private static int process(CommandContext<CommandSource> source)throws CommandSyntaxException {
-        PlayerEntity target = source.getSource().getPlayerOrException();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+        PlayerEntity player = source.getSource().getPlayerOrException();
         CommandSource ctx = source.getSource();
-        PlayerData data = PlayerData.getInstance(target);
+        PlayerData data = PlayerData.getInstance(player);
+        long now = System.currentTimeMillis();
         long flyUntil = data.getCanFlyUntil();
-        long minutes1 = flyUntil/(60 * 1000L);
-        if (target.isCreative()) {
-            target.sendMessage(new TranslationTextComponent("message.command.fly.cantSetFly",data.getName()).withStyle(TextFormatting.YELLOW), Util.NIL_UUID);
+        long flyTime = data.getCanFlyTime();
+        if (player.isCreative()) {
+            player.sendMessage(new TranslationTextComponent("message.command.fly.cantSetFly",data.getName()).withStyle(TextFormatting.YELLOW), Util.NIL_UUID);
             return 1;
         } else if (data.isFlyable()) {
             data.setFlyable(false);
-            ctx.sendSuccess(new TranslationTextComponent("message.command.fly.cantFly",minutes1).withStyle(TextFormatting.YELLOW), true);
+            long useTime = now - data.getStartFlyTime();
+            data.setCanFlyTime(flyTime - useTime);
+            long  date = (flyTime -useTime)/ 1000L;
+            ctx.sendSuccess(new TranslationTextComponent("message.command.fly.cantFly",date).withStyle(TextFormatting.YELLOW), true);
+            try {
+                File dataFile = new File(SimpleEco.PLAYER_DATA_FOLDER.getAbsolutePath() + "/" + player.getGameProfile().getName() + ".dat");
+                CompressedStreamTools.writeCompressed(data.serializeNBT(), dataFile);
+                SimpleEco.LOGGER.debug("Successfully save player " + data.getUuid() + " to file!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return 1;
-        } else {
+        } else if(data.getCanFlyTime() > 0){
             data.setFlyable(true);
+            data.setStartFlyTime(now);
+            data.setCanFlyUntil(now + flyTime);
             ctx.sendSuccess(new TranslationTextComponent("message.command.fly.canFly").withStyle(TextFormatting.GREEN), true);
+            try {
+                File dataFile = new File(SimpleEco.PLAYER_DATA_FOLDER.getAbsolutePath() + "/" + player.getGameProfile().getName() + ".dat");
+                CompressedStreamTools.writeCompressed(data.serializeNBT(), dataFile);
+                SimpleEco.LOGGER.debug("Successfully save player " + data.getUuid() + " to file!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return 1;
+        }
+        else {
+            player.sendMessage(new TranslationTextComponent("message.command.fly.cantSetFly",data.getName()).withStyle(TextFormatting.YELLOW), Util.NIL_UUID);
         }
         return 0;
     }
